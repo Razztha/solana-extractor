@@ -3,7 +3,7 @@ import { useAnchorWallet } from 'solana-wallets-vue'
 import { Connection, PublicKey } from '@solana/web3.js'
 import { AnchorProvider, Program } from '@project-serum/anchor'
 // import idl from '../../../target/idl/solana_extractor.json'
-import idl from '@/idl/solana_twitter.json'
+import idl from '@/idl/solana_extractor.json'
 
 const programID = new PublicKey(idl.metadata.address)
 let workspace = null
