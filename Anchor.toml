@@ -1,0 +1,20 @@
+[features]
+seeds = false
+[programs.localnet]
+solana_extractor = "5QXsiYB4w8mb3phLuyzaL8CkEfuvGe1L5a8UfnDZUeYb"
+
+[programs.devnet]
+solana_extractor = "5QXsiYB4w8mb3phLuyzaL8CkEfuvGe1L5a8UfnDZUeYb"
+
+[programs.mainnet]
+solana_extractor = "5QXsiYB4w8mb3phLuyzaL8CkEfuvGe1L5a8UfnDZUeYb"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "devnet"
+wallet = "/home/rasitha/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
