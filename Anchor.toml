@@ -18,3 +18,4 @@ wallet = "/home/rasitha/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+copy-idl = "mkdir -p app/src/idl && cp target/idl/solana_extractor.json app/src/idl/solana_extractor.json"

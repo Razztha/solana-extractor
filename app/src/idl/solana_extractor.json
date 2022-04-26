@@ -1,0 +1,64 @@
+{
+  "version": "0.1.0",
+  "name": "solana_extractor",
+  "instructions": [
+    {
+      "name": "saveMetadata",
+      "accounts": [
+        {
+          "name": "metadata",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "author",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Metadata",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "author",
+            "type": "publicKey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "data",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "MetadataTooLong",
+      "msg": "The provided metat should be 300 characters long maximum."
+    }
+  ],
+  "metadata": {
+    "address": "5QXsiYB4w8mb3phLuyzaL8CkEfuvGe1L5a8UfnDZUeYb"
+  }
+}
