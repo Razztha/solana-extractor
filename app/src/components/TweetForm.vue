@@ -86,7 +86,7 @@ const stopbtnClick = async () => {
 </script>
 
 <template>
-    <div v-if="connected" class="px-8 py-4 border-b">
+    <div v-if="true" class="px-8 py-4 border-b">
         <div style="border: 1px solid red; min-height:400px;" class="mb-5">
             <video muted id="video" autoplay></video>
         </div>
