@@ -107,6 +107,17 @@ const testAPI = async (base64data) => {
     });
 }
 
+const getLocation = async () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }
+}
+
+const showPosition = async (position) => {
+    alert("Latitude: " + position.coords.latitude + 
+  "Longitude: " + position.coords.longitude);
+}
+
 </script>
 
 <template>
@@ -125,6 +136,10 @@ const testAPI = async (base64data) => {
         <button id="savebtn" class="text-white px-4 py-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord && !canSave"
                     :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'" @click="saveMetadata">
             Save to Blockchain
+        </button>
+        <button id="savebtn" class="text-white px-4 py-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord && !canSave"
+                    :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'" @click="getLocation">
+            Get Location
         </button>
         <!-- Content field. -->
         <textarea
