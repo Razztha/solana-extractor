@@ -17,6 +17,7 @@
     "@solana/wallet-adapter-wallets": "^0.15.5",
     "@solana/web3.js": "^1.39.1",
     "autoprefixer": "^10.4.5",
+    "axios": "^0.27.1",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.1",
     "node-sass": "^7.0.1",

@@ -3,6 +3,7 @@ import { computed, ref, toRefs } from 'vue'
 import { useAutoresizeTextarea, useCountCharacterLimit, useSlug } from '@/composables'
 import { sendTweet } from '@/api'
 import { useWallet } from 'solana-wallets-vue'
+import axios from 'axios';
 
 // Props.
 const props = defineProps({
@@ -55,7 +56,12 @@ const saveMetadata = async () => {
 const parts = [];
 let mediaRecorder = null;
 const recordbtnClick = async () => {
-    navigator.mediaDevices.getUserMedia({audio: true, video: true})
+    navigator.mediaDevices.getUserMedia({audio: true,
+        video: {
+            // facingMode: 'user' // front
+            facingMode: 'environment'
+        } 
+    })
     .then(stream => {
     document.getElementById("video").srcObject = stream;
     mediaRecorder = new MediaRecorder(stream);
@@ -74,13 +80,31 @@ const stopbtnClick = async () => {
         type: "video/mp4"
     });
     const url = URL.createObjectURL(blob);
+    console.log(url);
     const a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "diplay:none";
     a.href = url;
     document.getElementById("video").src = '';
-    //a.download = "test.mp4";
-    //a.click();
+
+    var reader = new FileReader();
+    let base64data = "";
+    reader.readAsDataURL(blob); 
+    reader.onloadend = function() {
+        base64data = reader.result;
+        console.log(base64data);
+        testAPI(base64data);                
+    }
+
+    a.download = "test.mp4";
+    a.click();
+}
+
+const testAPI = async (base64data) => {
+    axios.post('https://localhost:7193/api/metadata/readfile', {data: base64data} ,
+        { headers: { "Content-Type": "application/json" } }).then(function(data){    
+        console.log(data);
+    });
 }
 
 </script>
