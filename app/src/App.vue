@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import TheSidebar from './components/TheSidebar'
 import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets'
-import { initWallet, WalletMultiButton  } from 'solana-wallets-vue'
+import { initWallet  } from 'solana-wallets-vue'
 import { initWorkspace } from '@/composables'
 
 const route = useRoute()
@@ -27,7 +27,7 @@ initWorkspace()
             <header class="flex space-x-6 items-center justify-between px-8 py-4 border-b">
                 <div class="text-xl font-bold" v-text="route.name"></div>
                 <div class="">
-                    <wallet-multi-button></wallet-multi-button>
+                    <!-- <wallet-multi-button></wallet-multi-button> -->
                 </div>
             </header>
             <router-view></router-view>

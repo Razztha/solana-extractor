@@ -12,7 +12,8 @@ export const sendTweet = async (topic, content) => {
     // 3. Send a "SendTweet" instruction with the right data and the right accounts.
     await program.value.rpc.saveMetadata(content, {
         accounts: {
-            author: wallet.value.publicKey,
+            // author: wallet.value.publicKey,
+            author: wallet.publicKey,
             metadata: keyPair.publicKey,
             systemProgram: web3.SystemProgram.programId,
         },
