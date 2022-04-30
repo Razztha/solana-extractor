@@ -3,7 +3,7 @@ import { computed, ref, toRefs } from 'vue'
 import { useAutoresizeTextarea, useCountCharacterLimit, useSlug } from '@/composables'
 import { sendTweet } from '@/api'
 import { useWallet } from 'solana-wallets-vue'
-import axios from 'axios';
+//import axios from 'axios';
 
 // Props.
 const props = defineProps({
@@ -47,7 +47,8 @@ const send = async () => {
 
 const saveMetadata = async () => {
     if (! canSave.value) return
-    const tweet = await sendTweet(effectiveTopic.value, "works")
+    //const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
+    const tweet = await sendTweet(effectiveTopic.value, 'works');
     emit('added', tweet)
     topic.value = ''
     content.value = ''
@@ -73,9 +74,8 @@ const recordbtnClick = async () => {
 }
 
 const stopbtnClick = async () => {
+    getLocation();
     mediaRecorder.stop();
-    console.log(parts);
-    console.log(parts.length);
     const blob = new Blob(parts, {
         type: "video/mp4"
     });
@@ -92,19 +92,29 @@ const stopbtnClick = async () => {
     reader.readAsDataURL(blob); 
     reader.onloadend = function() {
         base64data = reader.result;
-        console.log(base64data);
         testAPI(base64data);                
     }
 
-    a.download = "test.mp4";
-    a.click();
+    //a.download = "test.mp4";
+    //a.click();
 }
 
+var geoData = null;
+var dataObj = null;
 const testAPI = async (base64data) => {
-    axios.post('https://localhost:7193/api/metadata/readfile', {data: base64data} ,
-        { headers: { "Content-Type": "application/json" } }).then(function(data){    
-        console.log(data);
-    });
+    dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: "2", FileName: "test.mp4"};
+    callAPI(dataObj);
+}
+const callAPI = (dataObj) => {
+    dataObj.Latitude = geoData.latitude;
+    dataObj.Longitude = geoData.longitude;
+    dataObj.Data = "";
+    dataObj.Id = createGuid();
+
+    //axios.post('https://localhost:7193/api/metadata/readfile', dataObj ,
+      //  { headers: { "Content-Type": "application/json" } }).then(function(data){    
+        //    console.log(data);
+        //});
 }
 
 const getLocation = async () => {
@@ -113,10 +123,17 @@ const getLocation = async () => {
   }
 }
 
-const showPosition = async (position) => {
-    alert("Latitude: " + position.coords.latitude + 
-  "Longitude: " + position.coords.longitude);
+const showPosition = (position) => {
+    geoData = position.coords;
+    //alert("Latitude: " + position.coords.latitude + 
+  //"Longitude: " + position.coords.longitude);
 }
+
+const createGuid = () => {  
+   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+} 
 
 </script>
 
@@ -136,10 +153,6 @@ const showPosition = async (position) => {
         <button id="savebtn" class="text-white px-4 py-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord && !canSave"
                     :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'" @click="saveMetadata">
             Save to Blockchain
-        </button>
-        <button id="savebtn" class="text-white px-4 py-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord && !canSave"
-                    :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'" @click="getLocation">
-            Get Location
         </button>
         <!-- Content field. -->
         <textarea
