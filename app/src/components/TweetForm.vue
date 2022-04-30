@@ -33,7 +33,7 @@ const characterLimitColour = computed(() => {
 const { connected } = useWallet()
 const canRecord = computed(() => connected)
 const canTweet = computed(() => content.value && characterLimit.value > 0)
-const canSave = computed(() => parts.length > 0)
+const canSave = computed(() => parts.length > 0 && dataObj != null)
 
 // Actions.
 const emit = defineEmits(['added'])
@@ -46,7 +46,10 @@ const send = async () => {
 }
 
 const saveMetadata = async () => {
-    if (! canSave.value) return
+    if (! canSave.value) {
+        alert("No record found");
+        return;
+    }
     const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
     //const tweet = await sendTweet(effectiveTopic.value, 'works');
     emit('added', tweet)
@@ -74,6 +77,10 @@ const recordbtnClick = async () => {
 }
 
 const stopbtnClick = async () => {
+    if (mediaRecorder == null){
+        alert("No record found");
+        return
+    }
     getLocation();
     mediaRecorder.stop();
     const blob = new Blob(parts, {
