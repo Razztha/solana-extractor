@@ -47,8 +47,8 @@ const send = async () => {
 
 const saveMetadata = async () => {
     if (! canSave.value) return
-    //const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
-    const tweet = await sendTweet(effectiveTopic.value, 'works');
+    const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
+    //const tweet = await sendTweet(effectiveTopic.value, 'works');
     emit('added', tweet)
     topic.value = ''
     content.value = ''
@@ -92,17 +92,24 @@ const stopbtnClick = async () => {
     reader.readAsDataURL(blob); 
     reader.onloadend = function() {
         base64data = reader.result;
+        var base64str = base64data.split(',')[1];
+        var decoded = atob(base64str);
+
+        console.log("FileSize: " + Math.round(decoded.length/1024));
         testAPI(base64data);                
     }
 
-    //a.download = "test.mp4";
-    //a.click();
+    a.download = "test-record.mp4";
+    a.click();
 }
 
 var geoData = null;
 var dataObj = null;
 const testAPI = async (base64data) => {
-    dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: "2", FileName: "test.mp4"};
+    var base64str = base64data.split(',')[1];
+    var decoded = atob(base64str);
+    var size = Math.round(decoded.length/1024).toString() + " KB";
+    dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: size, FileName: "test-record.mp4"};
     callAPI(dataObj);
 }
 const callAPI = (dataObj) => {
@@ -110,7 +117,7 @@ const callAPI = (dataObj) => {
     dataObj.Longitude = geoData.longitude;
     dataObj.Data = "";
     dataObj.Id = createGuid();
-
+    console.log(dataObj);
     //axios.post('https://localhost:7193/api/metadata/readfile', dataObj ,
       //  { headers: { "Content-Type": "application/json" } }).then(function(data){    
         //    console.log(data);
@@ -139,18 +146,18 @@ const createGuid = () => {
 
 <template>
     <div v-if="true" class="px-8 py-4 border-b">
-        <div style="border: 1px solid red; min-height:400px;" class="mb-5">
+        <div style="border: 1px solid red;" class="mb-5">
             <video muted id="video" autoplay></video>
         </div>
-        <button id="recordbtn" @click="recordbtnClick" class="text-white px-4 py-2 mr-2 rounded-full font-semibold bg-pink-500" :disabled="! canRecord"
+        <button id="recordbtn" @click="recordbtnClick" class="text-white px-4 py-2 mr-2 mb-2 rounded-full font-semibold bg-pink-500" :disabled="! canRecord"
                     :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'">
             Start recording
         </button>
-        <button id="stopbtn" @click="stopbtnClick" class="text-white px-4 py-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord"
+        <button id="stopbtn" @click="stopbtnClick" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord"
                     :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'">
             Stop recording
         </button>
-        <button id="savebtn" class="text-white px-4 py-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord && !canSave"
+        <button id="savebtn" class="text-white px-4 py-2 rounded-full font-semibold bg-pink-500 mr-2 mb-2" :disabled="! canRecord && !canSave"
                     :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'" @click="saveMetadata">
             Save to Blockchain
         </button>

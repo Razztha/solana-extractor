@@ -1,5 +1,5 @@
 <script setup>
-import { WalletMultiButton, useWallet } from 'solana-wallets-vue'
+import { useWallet } from 'solana-wallets-vue'
 const { connected } = useWallet()
 </script>
 
@@ -50,9 +50,6 @@ const { connected } = useWallet()
                 </svg>
                 <div class="text-xl hidden md:block">Profile</div>
             </router-link>
-        </div>
-        <div class="fixed bottom-8 right-8 md:static w-48 md:w-full">
-           <wallet-multi-button></wallet-multi-button>
         </div>
     </aside>
 </template>
