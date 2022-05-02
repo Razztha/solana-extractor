@@ -75,6 +75,7 @@ const recordbtnClick = async () => {
     })
     .then(stream => {
     document.getElementById("video").srcObject = stream;
+    document.getElementById("video").setAttribute("playsinline", true);
     mediaRecorder = new MediaRecorder(stream);
     streamObj = stream;
         mediaRecorder.start(1000);
