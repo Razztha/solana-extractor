@@ -143,8 +143,8 @@ const testAPI = (base64data) => {
     callAPI(dataObj);
 }
 const callAPI = (dataObj) => {
-    dataObj.Latitude = geoData.latitude;
-    dataObj.Longitude = geoData.longitude;
+    dataObj.Latitude = geoData != null ? geoData.latitude : "";
+    dataObj.Longitude = geoData != null ? geoData.longitude : "";
     dataObj.Data = "";
     dataObj.Id = createGuid();
     console.log(dataObj);
