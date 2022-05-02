@@ -10,15 +10,20 @@ export const sendTweet = async (topic, content) => {
     const keyPair = web3.Keypair.generate()
 
     // 3. Send a "SendTweet" instruction with the right data and the right accounts.
-    await program.value.rpc.saveMetadata(content, {
-        accounts: {
-            // author: wallet.value.publicKey,
-            author: wallet.publicKey,
-            metadata: keyPair.publicKey,
-            systemProgram: web3.SystemProgram.programId,
-        },
-        signers: [keyPair]
-    })
+    try {
+        await program.value.rpc.saveMetadata(content, {
+            accounts: {
+                // author: wallet.value.publicKey,
+                author: wallet.publicKey,
+                metadata: keyPair.publicKey,
+                systemProgram: web3.SystemProgram.programId,
+            },
+            signers: [keyPair]
+        })
+    }
+    catch(err) {
+        alert(err.message);
+    }
 
     // 4. Fetch the newly created account from the blockchain.
     const metadataAccount = await program.value.account.metadata.fetch(keyPair.publicKey)
