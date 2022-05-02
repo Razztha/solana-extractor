@@ -52,8 +52,8 @@ const saveMetadata = async () => {
     }
 
     if (confirm("This will cost 0.00001 SOL. Press ok to continue") == true) {
-        //const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
-        const tweet = await sendTweet(effectiveTopic.value, 'works');
+        const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
+        //const tweet = await sendTweet(effectiveTopic.value, 'works');
         emit('added', tweet)
         topic.value = ''
         content.value = ''
@@ -124,7 +124,21 @@ var dataObj = null;
 const testAPI = (base64data) => {
     var base64str = base64data.split(',')[1];
     var decoded = atob(base64str);
-    var size = Math.round(decoded.length/1024).toString() + " KB";
+    var measure = 'KB'
+    var size = decoded.length/1024;
+
+    if (size > 1024){
+        size = size/1024;
+        measure = 'MB';
+    }
+
+    if (size > 1024){
+        size = size/1024;
+        measure = 'GB';
+    }
+
+    size = Math.round(size).toString() + ' ' + measure;
+
     dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: size, FileName: "test-record.mp4"};
     callAPI(dataObj);
 }
