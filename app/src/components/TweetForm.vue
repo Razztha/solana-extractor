@@ -52,8 +52,8 @@ const saveMetadata = async () => {
     }
 
     if (confirm("This will cost 0.00001 SOL. Press ok to continue") == true) {
-        const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
-        //const tweet = await sendTweet(effectiveTopic.value, 'works');
+        //const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
+        const tweet = await sendTweet(effectiveTopic.value, 'works');
         emit('added', tweet)
         topic.value = ''
         content.value = ''
