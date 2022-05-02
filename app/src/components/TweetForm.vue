@@ -66,6 +66,7 @@ const parts = [];
 let mediaRecorder = null;
 let streamObj = null;
 const recordbtnClick = async () => {
+    getLocation();
     navigator.mediaDevices.getUserMedia({audio: true,
         video: {
             // facingMode: 'user' // front
@@ -88,14 +89,13 @@ const stopbtnClick = async () => {
         alert("No record found");
         return
     }
-    getLocation();
+   
     mediaRecorder.stop();
     streamObj.getTracks().forEach( track => track.stop() );
     const blob = new Blob(parts, {
         type: "video/mp4"
     });
     const url = URL.createObjectURL(blob);
-    console.log(url);
     const a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "diplay:none";
