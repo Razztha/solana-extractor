@@ -115,8 +115,8 @@ const stopbtnClick = async () => {
         testAPI(base64data);                
     }
 
-    a.download = "test-record.mp4";
-    a.click();
+    //a.download = "test-record.mp4";
+    //a.click();
 }
 
 var geoData = null;
