@@ -115,13 +115,13 @@ const stopbtnClick = async () => {
         testAPI(base64data);                
     }
 
-    //a.download = "test-record.mp4";
-    //a.click();
+    a.download = "test-record.mp4";
+    a.click();
 }
 
 var geoData = null;
 var dataObj = null;
-const testAPI = async (base64data) => {
+const testAPI = (base64data) => {
     var base64str = base64data.split(',')[1];
     var decoded = atob(base64str);
     var size = Math.round(decoded.length/1024).toString() + " KB";
