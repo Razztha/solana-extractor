@@ -50,15 +50,21 @@ const saveMetadata = async () => {
         alert("No record found");
         return;
     }
-    const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
-    //const tweet = await sendTweet(effectiveTopic.value, 'works');
-    emit('added', tweet)
-    topic.value = ''
-    content.value = ''
+
+    if (confirm("This will cost 0.00001 SOL. Press ok to continue") == true) {
+        const tweet = await sendTweet(effectiveTopic.value, "'"+JSON.stringify(dataObj)+"'");
+        //const tweet = await sendTweet(effectiveTopic.value, 'works');
+        emit('added', tweet)
+        topic.value = ''
+        content.value = ''
+    } else {
+        return;
+    }
 }
 
 const parts = [];
 let mediaRecorder = null;
+let streamObj = null;
 const recordbtnClick = async () => {
     navigator.mediaDevices.getUserMedia({audio: true,
         video: {
@@ -69,6 +75,7 @@ const recordbtnClick = async () => {
     .then(stream => {
     document.getElementById("video").srcObject = stream;
     mediaRecorder = new MediaRecorder(stream);
+    streamObj = stream;
         mediaRecorder.start(1000);
         mediaRecorder.ondataavailable = function(e){
             parts.push(e.data);
@@ -83,6 +90,7 @@ const stopbtnClick = async () => {
     }
     getLocation();
     mediaRecorder.stop();
+    streamObj.getTracks().forEach( track => track.stop() );
     const blob = new Blob(parts, {
         type: "video/mp4"
     });
@@ -106,8 +114,8 @@ const stopbtnClick = async () => {
         testAPI(base64data);                
     }
 
-    //a.download = "test-record.mp4";
-    //a.click();
+    a.download = "test-record.mp4";
+    a.click();
 }
 
 var geoData = null;
@@ -153,7 +161,7 @@ const createGuid = () => {
 
 <template>
     <div v-if="true" class="px-8 py-4 border-b">
-        <div style="border: 1px solid red;" class="mb-5">
+        <div style="border: 1px solid red; min-height:200px" class="mb-5">
             <video muted id="video" autoplay></video>
         </div>
         <button id="recordbtn" @click="recordbtnClick" class="text-white px-4 py-2 mr-2 mb-2 rounded-full font-semibold bg-pink-500" :disabled="! canRecord"
