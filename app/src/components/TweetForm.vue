@@ -89,7 +89,6 @@ const stopbtnClick = async () => {
         return
     }
     getLocation();
-    getLocation1();
     mediaRecorder.stop();
     streamObj.getTracks().forEach( track => track.stop() );
     const blob = new Blob(parts, {
@@ -148,6 +147,7 @@ var options = {
 
 const success = (pos) => {
   var crd = pos.coords;
+  geoData = crd;
   console.log('Successfully determined a user position:', crd);
 }
 
@@ -155,22 +155,10 @@ const error = (err) => {
   console.log(`ERROR(${err.code}): ${err.message}`);
 }
 
-const getLocation1 = async () => {
+const getLocation = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
-}
-
-const getLocation = async () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  }
-}
-
-const showPosition = (position) => {
-    geoData = position.coords;
-    //alert("Latitude: " + position.coords.latitude + 
-  //"Longitude: " + position.coords.longitude);
 }
 
 const createGuid = () => {  
