@@ -1,6 +1,7 @@
 import { web3 } from '@project-serum/anchor'
 import { useWorkspace } from '@/composables'
 import { Tweet } from '@/models'
+// import {createNftAndMint} from './token-control.js'
 
 // 1. Define the sendTweet endpoint.
 export const sendTweet = async (topic, content) => {
@@ -8,6 +9,9 @@ export const sendTweet = async (topic, content) => {
   
   	// 2. Generate a new Keypair for our new tweet account.
     const keyPair = web3.Keypair.generate()
+
+    // create nft
+    // await createNftAndMint(connection, keyPair);
 
     // 3. Send a "SendTweet" instruction with the right data and the right accounts.
     try {

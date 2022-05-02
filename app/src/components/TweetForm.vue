@@ -89,6 +89,7 @@ const stopbtnClick = async () => {
         return
     }
     getLocation();
+    getLocation1();
     mediaRecorder.stop();
     streamObj.getTracks().forEach( track => track.stop() );
     const blob = new Blob(parts, {
@@ -137,6 +138,27 @@ const callAPI = (dataObj) => {
       //  { headers: { "Content-Type": "application/json" } }).then(function(data){    
         //    console.log(data);
         //});
+}
+
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+const success = (pos) => {
+  var crd = pos.coords;
+  console.log('Successfully determined a user position:', crd);
+}
+
+const error = (err) => {
+  console.log(`ERROR(${err.code}): ${err.message}`);
+}
+
+const getLocation1 = async () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  }
 }
 
 const getLocation = async () => {
