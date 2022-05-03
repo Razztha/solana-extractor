@@ -103,7 +103,8 @@ const stopbtnClick = async () => {
     a.href = url;
     document.getElementById("video").src = '';
 
-    var reader = new FileReader();
+    try{
+        var reader = new FileReader();
     let base64data = "";
     reader.readAsDataURL(blob); 
     reader.onloadend = function() {
@@ -114,7 +115,12 @@ const stopbtnClick = async () => {
         console.log("changed");
         console.log("FileSize: " + Math.round(decoded.length/1024));
         testAPI(base64data);                
+        }
     }
+    catch(error){
+        alert(error.message);
+    }
+    
 
     a.download = "test-record.mp4";
     a.click();
@@ -123,25 +129,25 @@ const stopbtnClick = async () => {
 var geoData = null;
 var dataObj = null;
 const testAPI = (base64data) => {
-    var base64str = base64data.split(',')[1];
+    //var base64str = base64data.split(',')[1];
     //var decoded = atob(base64str);
-    var decoded = btoa(unescape(encodeURIComponent(base64str)));
-    var measure = 'KB'
-    var size = decoded.length/1024;
+    //var decoded = utf8_to_b64(base64str);
+    //var measure = 'KB'
+    //var size = decoded.length/1024;
 
-    if (size > 1024){
-        size = size/1024;
-        measure = 'MB';
-    }
+    //if (size > 1024){
+      //  size = size/1024;
+      //  measure = 'MB';
+    //}
 
-    if (size > 1024){
-        size = size/1024;
-        measure = 'GB';
-    }
+    //if (size > 1024){
+      //  size = size/1024;
+      //  measure = 'GB';
+    //}
 
-    size = Math.round(size).toString() + ' ' + measure;
+    //size = Math.round(size).toString() + ' ' + measure;
 
-    dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: size, FileName: "test-record.mp4"};
+    dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: '1.1 KB', FileName: "test-record.mp4"};
     callAPI(dataObj);
 }
 const callAPI = (dataObj) => {
@@ -155,6 +161,10 @@ const callAPI = (dataObj) => {
         //    console.log(data);
         //});
 }
+
+//const utf8_to_b64 = ( str ) => {
+  //return window.btoa(unescape(encodeURIComponent( str )));
+//}
 
 var options = {
   enableHighAccuracy: true,
