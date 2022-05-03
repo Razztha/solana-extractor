@@ -123,8 +123,8 @@ var geoData = null;
 var dataObj = null;
 const testAPI = (base64data) => {
     var base64str = base64data.split(',')[1];
-    var decoded = atob(base64str);
-    //var decoded = btoa(unescape(encodeURIComponent(base64str)));
+    //var decoded = atob(base64str);
+    var decoded = btoa(unescape(encodeURIComponent(base64str)));
     var measure = 'KB'
     var size = decoded.length/1024;
 
