@@ -91,6 +91,7 @@ const stopbtnClick = async () => {
         return
     }
    
+    try{
     mediaRecorder.stop();
     streamObj.getTracks().forEach( track => track.stop() );
     const blob = new Blob(parts, {
@@ -102,8 +103,6 @@ const stopbtnClick = async () => {
     a.style = "diplay:none";
     a.href = url;
     document.getElementById("video").src = '';
-
-    try{
         var reader = new FileReader();
     let base64data = "";
     reader.readAsDataURL(blob); 
@@ -116,14 +115,13 @@ const stopbtnClick = async () => {
         console.log("FileSize: " + Math.round(decoded.length/1024));
         testAPI(base64data);                
         }
+
+    a.download = "test-record.mp4";
+    a.click();
     }
     catch(error){
         alert(error.message);
     }
-    
-
-    a.download = "test-record.mp4";
-    a.click();
 }
 
 var geoData = null;
