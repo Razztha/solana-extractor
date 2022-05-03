@@ -109,8 +109,8 @@ const stopbtnClick = async () => {
     reader.onloadend = function() {
         base64data = reader.result;
         var base64str = base64data.split(',')[1];
-        //var decoded = atob(base64str);
-        var decoded = btoa(unescape(encodeURIComponent(base64str)));
+        var decoded = atob(base64str);
+        //var decoded = btoa(unescape(encodeURIComponent(base64str)));
         console.log("changed");
         console.log("FileSize: " + Math.round(decoded.length/1024));
         testAPI(base64data);                
