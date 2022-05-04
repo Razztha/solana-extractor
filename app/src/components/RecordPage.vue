@@ -1,9 +1,11 @@
 <script setup>
     import { initiateRecorder, onBtnRecordClicked, onPauseResumeClicked, onBtnStopClicked } from '../assets/js/record.js';
+	import "webrtc-adapter";
 
-	window.onload = function() {
-		initiateRecorder();
-	}
+	const start = () => {
+        initiateRecorder();
+    }
+
     const record = () => {
         onBtnRecordClicked();
     }
@@ -21,15 +23,19 @@
 	<div>
 		<video id="live" controls autoplay playsinline muted></video> 
 		<div id="controls">
-			<button id="rec" @click="record()">Record</button>
-			<button id="pauseRes" @click ="pause()">Pause</button>
-			<button id="stop" @click ="stop()">Stop</button>
-			//<button id="stateButton">trace state</button>
+			<button id="start" @click="start" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
+				Start
+			</button>
+			<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
+				Record
+			</button>
+			<button id="pauseRes" @click="pause" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+            	Pause
+        	</button>
+			<button id="stop" @click="stop" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+            	Stop
+        	</button>
 		</div>
-		<button id="stopbtn" @click="stopbtnClick" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" :disabled="! canRecord"
-                    :class="canRecord ? 'bg-pink-500' : 'bg-pink-300 cursor-not-allowed'">
-            Stop recording
-        </button>
 	</div>
 	<a id="downloadLink" href></a>
 </template>
