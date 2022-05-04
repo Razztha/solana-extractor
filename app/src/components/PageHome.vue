@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { fetchTweets } from '@/api'
-import TweetForm from '@/components/TweetForm'
+//import TweetForm from '@/components/TweetForm'
+import RecordPage from '@/components/RecordPage'
 import TweetList from '@/components/TweetList'
 
 const tweets = ref([])
@@ -14,6 +15,6 @@ const addTweet = tweet => tweets.value.push(tweet)
 </script>
 
 <template>
-    <tweet-form @added="addTweet"></tweet-form>
+    <record-page @added="addTweet"></record-page>
     <tweet-list :tweets="tweets" :loading="loading"></tweet-list>
 </template>

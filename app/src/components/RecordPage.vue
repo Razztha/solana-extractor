@@ -1,12 +1,37 @@
 <script setup>
-    import { initiateRecorder, onBtnRecordClicked, onPauseResumeClicked, onBtnStopClicked } from '../assets/js/record.js';
+    import { initiateRecorder, onBtnRecordClicked, onPauseResumeClicked, onBtnStopClicked, chunks } from '../assets/js/record.js';
 	import "webrtc-adapter";
+	import { sendTweet } from '@/api'
+	//import { useWallet } from 'solana-wallets-vue'
+	import { computed } from 'vue'
+
+	// Permissions.
+	//const { connected } = useWallet()
+	//const canRecord = computed(() => connected)
+	const canSave = computed(() => chunks.length > 0 && dataObj != null)	
+
+	const emit = defineEmits(['added']);
+	const saveMetadata = async () => {
+		if (! canSave.value) {
+			alert("No record found");
+			return;
+		}
+
+		if (confirm("This will cost 0.00001 SOL. Press ok to continue") == true) {
+			const tweet = await sendTweet('', "'"+JSON.stringify(dataObj)+"'");
+			//const tweet = await sendTweet('', 'works');
+			emit('added', tweet)
+		} else {
+			return;
+		}
+	}
 
 	const start = () => {
         initiateRecorder();
     }
 
     const record = () => {
+		getLocation();
         onBtnRecordClicked();
     }
 
@@ -16,12 +41,75 @@
 
 	const stop = () => {
         onBtnStopClicked();
+		console.log(chunks);
+
+		const blob = new Blob(chunks, {
+        type: "video/mp4"
+    	});
+
+        var reader = new FileReader();
+    	let base64data = "";
+    	reader.readAsDataURL(blob); 
+    	reader.onloadend = function() {
+        base64data = reader.result;
+        testAPI(base64data)          
+        }
     }
+
+	var geoData = null;
+	var dataObj = null;
+	const testAPI = (base64data) => {
+		dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: '1.1 KB', FileName: "test-record.mp4"};
+		callAPI(dataObj);
+	}
+
+	const callAPI = (dataObj) => {
+		dataObj.Latitude = geoData != null ? geoData.latitude : "";
+		dataObj.Longitude = geoData != null ? geoData.longitude : "";
+		dataObj.Data = "";
+		dataObj.Id = createGuid();
+		console.log(dataObj);
+		//axios.post('https://localhost:7193/api/metadata/readfile', dataObj ,
+		//  { headers: { "Content-Type": "application/json" } }).then(function(data){    
+			//    console.log(data);
+			//});
+	}
+
+	var options = {
+	enableHighAccuracy: true,
+	timeout: 5000,
+	maximumAge: 0
+	};
+
+	const success = (pos) => {
+	var crd = pos.coords;
+	geoData = crd;
+	console.log('Successfully determined a user position:', crd);
+	}
+
+	const error = (err) => {
+	console.log(`ERROR(${err.code}): ${err.message}`);
+	}
+
+	const getLocation = () => {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(success, error, options);
+	}
+	}
+
+	const createGuid = () => {  
+	return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+		(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+	);
+	} 
 </script>
 
 <template>
-	<div>
-		<video id="live" controls autoplay playsinline muted></video> 
+	<div class="px-8 py-4 border-b">
+		<div style="border: 1px solid red; min-height:200px" class="mb-5">
+            <video muted id="live" autoplay controls></video>
+        </div>
+		
 		<div id="controls">
 			<button id="start" @click="start" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
 				Start
@@ -35,7 +123,10 @@
 			<button id="stop" @click="stop" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Stop
         	</button>
+			<button id="stop" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+            	Save to Solana
+        	</button>
 		</div>
 	</div>
-	<a id="downloadLink" href></a>
+	<a id="downloadLink" href style="display:none"></a>
 </template>

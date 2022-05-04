@@ -1,6 +1,8 @@
 'use strict';
 
-var constraints = {audio:true,video:{width:{min:640,ideal:640,max:640 },height:{ min:480,ideal:480,max:480},framerate:60}};
+var constraints = {
+	audio:true,
+	video:{width:{min:640,ideal:640,max:640}, facingMode: 'environment', height:{ min:480,ideal:480,max:480},framerate:60}};
 
 // var playbackVideoElement = document.querySelector('#playback');
 // var dataElement = document.querySelector('#data');
@@ -9,7 +11,7 @@ var constraints = {audio:true,video:{width:{min:640,ideal:640,max:640 },height:{
 // playbackVideoElement.controls=false;
 
 var mediaRecorder;
-var chunks = [];
+export var chunks = [];
 // var count = 0;
 var localStream = null;
 var soundMeter  = null;
@@ -256,6 +258,7 @@ export const onBtnRecordClicked = () => {
 
 			downloadLink.setAttribute( "download", name);
 			downloadLink.setAttribute( "name", name);
+			downloadLink.click();
 		};
 
 		mediaRecorder.onpause = function(){
@@ -286,7 +289,12 @@ export const onBtnStopClicked = () => {
     var pauseResBtn = document.querySelector('button#pauseRes');
     var stopBtn = document.querySelector('button#stop');
 
-	mediaRecorder.stop();
+	if (mediaRecorder != null){
+		mediaRecorder.stop();
+	}
+	
+	localStream.getTracks().forEach( track => track.stop() );
+	document.getElementById("live").src = '';
 	recBtn.disabled = false;
 	pauseResBtn.disabled = true;
 	stopBtn.disabled = true;
