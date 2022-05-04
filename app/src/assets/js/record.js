@@ -166,7 +166,6 @@ export const onBtnRecordClicked = () => {
 
 		/* use the stream */
 		log('Start recording...');
-		document.getElementById("live").setAttribute("playsinline", true);
 		if (typeof MediaRecorder.isTypeSupported == 'function'){
 			/*
 				MediaRecorder.isTypeSupported is a function announced in https://developers.google.com/web/updates/2016/01/mediarecorder and later introduced in the MediaRecorder API spec http://www.w3.org/TR/mediastream-recording/
