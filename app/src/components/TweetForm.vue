@@ -66,6 +66,7 @@ const parts = [];
 let mediaRecorder = null;
 let streamObj = null;
 const recordbtnClick = async () => {
+    try{
     getLocation();
     navigator.mediaDevices.getUserMedia({audio: true,
         video: {
@@ -83,6 +84,11 @@ const recordbtnClick = async () => {
             parts.push(e.data);
         }
     });
+    }
+    catch (error)
+    {
+        alert(error.message);
+    }
 }
 
 const stopbtnClick = async () => {

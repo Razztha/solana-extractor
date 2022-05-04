@@ -25,6 +25,11 @@ export default [
         component: require('@/components/PageTweet').default,
     },
     {
+        name: 'Record',
+        path: '/record',
+        component: require('@/components/RecordPage').default,
+    },
+    {
         name: 'NotFound',
         path: '/:pathMatch(.*)*',
         component: require('@/components/PageNotFound').default,
