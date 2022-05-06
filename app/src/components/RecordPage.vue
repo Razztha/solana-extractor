@@ -75,12 +75,12 @@
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
 
-		axios.get(`https://api.coindesk.com/v1/bpi/currentprice.json`)
-		.then(res => {
-			console.log(res);
-			console.log(res.data)
-		})
-		.catch(error => console.log(error));
+		axios.post('https://solana-windows.empite.net/api/metadata/readfile', dataObj ,
+		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
+			    console.log(data.data);
+				apiData = data.data;
+				console.log(apiData);
+			});
 		
 	}
 
