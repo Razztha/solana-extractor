@@ -75,11 +75,16 @@
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
 
+		try{
 		axios.get('https://solana-windows.empite.net/api/metadata/1', 
 			{headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*'}})
       		.then(response => {
 				  console.log(response);
-			  });
+			  }).catch(error => console.log(error));
+		}
+		catch(error){
+			console.log(error);
+		}
 
 		axios.get('https://solana-windows.empite.net/api/metadata/1')
       		.then(response => {
