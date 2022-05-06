@@ -74,12 +74,15 @@
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
-		axios.post('https://solana-windows.empite.net/api/metadata/readfile', dataObj ,
-		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
-			    console.log(data.data);
-				apiData = data.data;
-				console.log(apiData);
-			});
+		
+		axios.post(`https://solana-windows.empite.net/api/metadata/readfile`, dataObj,
+			{ headers: { "Content-Type": "application/json" } })
+			.then(res => {
+			console.log(res);
+			console.log(res.data);
+			apiData = res.data
+		})
+    	.catch(error => console.log(error));	
 	}
 
 	var options = {
