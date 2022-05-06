@@ -74,7 +74,9 @@
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
-		getData();
+		getData().then(response => {
+			console.log(response);
+		});
 	}
 
 	var options = {
