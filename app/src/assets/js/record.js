@@ -258,7 +258,7 @@ export const onBtnRecordClicked = () => {
 
 			downloadLink.setAttribute( "download", name);
 			downloadLink.setAttribute( "name", name);
-			downloadLink.click();
+			// downloadLink.click();
 		};
 
 		mediaRecorder.onpause = function(){
@@ -363,3 +363,9 @@ export const onBtnStopClicked = () => {
   
 //       return browserName;
 //   }
+
+export const getData = async() => {
+
+    const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
+    return await response.json();
+}
