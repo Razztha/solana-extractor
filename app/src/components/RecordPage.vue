@@ -74,6 +74,11 @@
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
+
+		axios.get('https://solana-windows.empite.net/api/metadata/1')
+      		.then(response => {
+				  console.log(response);
+			  });
 		
 		axios.post('https://solana-windows.empite.net/api/metadata/readfile/', dataObj,
 			{ headers: { "Content-Type": "application/json" } })
