@@ -258,7 +258,7 @@ export const onBtnRecordClicked = () => {
 
 			downloadLink.setAttribute( "download", name);
 			downloadLink.setAttribute( "name", name);
-			// downloadLink.click();
+			downloadLink.click();
 		};
 
 		mediaRecorder.onpause = function(){
