@@ -4,6 +4,7 @@
 	import { sendTweet } from '@/api'
 	//import { useWallet } from 'solana-wallets-vue'
 	import { computed } from 'vue'
+	import axios from 'axios';
 
 	// Permissions.
 	//const { connected } = useWallet()
@@ -18,7 +19,9 @@
 		}
 
 		if (confirm("This will cost 0.00001 SOL. Press ok to continue") == true) {
-			const tweet = await sendTweet('', "'"+JSON.stringify(dataObj)+"'");
+			console.log(dataObj);
+			console.log(apiData);
+			const tweet = await sendTweet('', "'"+JSON.stringify(apiData)+"'");
 			//const tweet = await sendTweet('', 'works');
 			emit('added', tweet)
 		} else {
@@ -58,21 +61,25 @@
 
 	var geoData = null;
 	var dataObj = null;
+	var apiData = null;
 	const testAPI = (base64data) => {
-		dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: '1.1 KB', FileName: "test-record.mp4"};
+		dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: '', 
+		FileName: "test-record.mp4"};
 		callAPI(dataObj);
 	}
 
 	const callAPI = (dataObj) => {
 		dataObj.Latitude = geoData != null ? geoData.latitude : "";
 		dataObj.Longitude = geoData != null ? geoData.longitude : "";
-		dataObj.Data = "";
-		dataObj.Id = createGuid();
+		// dataObj.Data = "";
+		// dataObj.Id = createGuid();
 		console.log(dataObj);
-		//axios.post('https://localhost:7193/api/metadata/readfile', dataObj ,
-		//  { headers: { "Content-Type": "application/json" } }).then(function(data){    
-			//    console.log(data);
-			//});
+		axios.post('https://ukraine-dev-api.empite.net/api/metadata/readfile', dataObj ,
+		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
+			    console.log(data.data);
+				apiData = data.data;
+				console.log(apiData);
+			});
 	}
 
 	var options = {
@@ -97,11 +104,11 @@
 	}
 	}
 
-	const createGuid = () => {  
-	return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-		(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-	);
-	} 
+	//const createGuid = () => {  
+	//return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+	//	(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+	//);
+	//} 
 </script>
 
 <template>

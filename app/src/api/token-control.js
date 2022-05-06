@@ -3,7 +3,7 @@ import {
 } from '@solana/web3.js';
 import { 
     createMint, 
-    getOrCreateAssociatedTokenAccount, 
+    getOrCreateAssociatedTokenAccount 
 } from '@solana/spl-token';
 
     export const createNftAndMint = async (connection, fromWallet) => {
@@ -32,13 +32,18 @@ import {
 
         console.log(`Create NFT Account: ${fromTokenAccount.address.toBase58()}`);
 
-        // const signature = await mintTo(
-        //     connection,
-        //     fromWallet,
-        //     mint,
-        //     fromTokenAccount.address,
-        //     fromWallet.publicKey,
-        //     1
-        // );
-        // console.log(`Mint signature: ${signature}`);
+        // try{
+        //     const signature = await mintTo(
+        //         connection,
+        //         fromWallet,
+        //         mint,
+        //         fromTokenAccount.address,
+        //         fromWallet.publicKey,
+        //         1
+        //     );
+        //     console.log(`Mint signature: ${signature}`);
+        // }
+        // catch(error){
+        //     console.log(error);
+        // }
     }   
