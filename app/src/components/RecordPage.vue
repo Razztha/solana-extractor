@@ -18,7 +18,7 @@
 			return;
 		}
 
-		if (confirm("This will cost 0.00001 SOL. Press ok to continue") == true) {
+		if (confirm("This will cost some SOL. Press ok to continue") == true) {
 			console.log(dataObj);
 			console.log(apiData);
 			const tweet = await sendTweet('', "'"+JSON.stringify(apiData)+"'");
