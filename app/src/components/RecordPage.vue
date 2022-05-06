@@ -19,9 +19,11 @@
 		}
 
 		if (confirm("This will cost some SOL. Press ok to continue") == true) {
+			document.getElementById("loader").style.display = "block";
 			console.log(dataObj);
 			console.log(apiData);
 			const tweet = await sendTweet('', "'"+JSON.stringify(apiData)+"'");
+			document.getElementById("loader").style.display = "none";
 			//const tweet = await sendTweet('', 'works');
 			emit('added', tweet)
 		} else {
@@ -43,6 +45,7 @@
     }
 
 	const stop = () => {
+		document.getElementById("loader").style.display = "block";
         onBtnStopClicked();
 		console.log(chunks);
 
@@ -80,6 +83,7 @@
 			    console.log(data.data);
 				apiData = data.data;
 				console.log(apiData);
+				document.getElementById("loader").style.display = "none";
 			});
 		
 	}
@@ -135,6 +139,7 @@
 			<button id="stop" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Save to Solana
         	</button>
+			<p id="loader" style="display:none">Loading...</p>
 		</div>
 	</div>
 	<a id="downloadLink" href style="display:none"></a>
