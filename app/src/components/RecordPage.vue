@@ -1,10 +1,10 @@
 <script setup>
-    import { initiateRecorder, onBtnRecordClicked, onPauseResumeClicked, onBtnStopClicked, chunks, getData } from '../assets/js/record.js';
+    import { initiateRecorder, onBtnRecordClicked, onPauseResumeClicked, onBtnStopClicked, chunks } from '../assets/js/record.js';
 	import "webrtc-adapter";
 	import { sendTweet } from '@/api'
 	//import { useWallet } from 'solana-wallets-vue'
 	import { computed } from 'vue'
-	//import axios from 'axios';
+	import axios from 'axios';
 
 	// Permissions.
 	//const { connected } = useWallet()
@@ -74,9 +74,13 @@
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
-		getData().then(response => {
-			console.log(response);
-		});
+		axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (err) {
+          document.getElementById('people').innerHTML = '<li class="text-danger">' + err.message + '</li>';
+        });
 	}
 
 	var options = {
