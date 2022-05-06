@@ -75,6 +75,11 @@
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
 
+		axios.get('https://u2201-ukraine-dev-api-win.azurewebsites.net//api/metadata/1')
+      		.then(response => {
+				  console.log(response);
+			  });
+
 		axios.get('https://solana-windows.empite.net/api/metadata/1')
       		.then(response => {
 				  console.log(response);
