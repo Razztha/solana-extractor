@@ -75,12 +75,23 @@
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
 
-		axios.post('https://solana-windows.empite.net/api/metadata/readfile', dataObj ,
-		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
-			    console.log(data.data);
-				apiData = data.data;
-				console.log(apiData);
-			});
+		try{
+			console.log("get in");
+			axios.get('https://solana-windows.empite.net/api/metadata/1/', 
+			{headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*',
+			'Access-Control-Allow-Methods': '*', 'Access-Control-Expose-Headers': 'X-Pagination-Total'}})
+      		.then(response => {
+				  console.log(response);
+			  }).catch(error => {
+				  console.log("get error 1")
+				  console.log(error);
+				  console.log(error.response);
+				  });
+		}
+		catch(error){
+			console.log("get error 2");
+			console.log(error);
+		}
 		
 	}
 
