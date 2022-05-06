@@ -9,7 +9,7 @@
 	// Permissions.
 	//const { connected } = useWallet()
 	//const canRecord = computed(() => connected)
-	const canSave = computed(() => chunks.length > 0 && dataObj != null)	
+	const canSave = computed(() => chunks.length > 0 && apiData != null)	
 
 	const emit = defineEmits(['added']);
 	const saveMetadata = async () => {
