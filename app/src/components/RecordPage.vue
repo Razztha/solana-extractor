@@ -74,13 +74,14 @@
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
-		axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (err) {
-          document.getElementById('people').innerHTML = '<li class="text-danger">' + err.message + '</li>';
-        });
+
+		axios.get(`https://api.coindesk.com/v1/bpi/currentprice.json`)
+		.then(res => {
+			console.log(res);
+			console.log(res.data)
+		})
+		.catch(error => console.log(error));
+		
 	}
 
 	var options = {
