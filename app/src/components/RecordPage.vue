@@ -76,22 +76,10 @@
 		console.log(dataObj);
 
 
-		try{
-			console.log("get in");
-			axios.get('https://solana-windows.empite.net/api/metadata/1/', 
-			{headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*',
-			'Access-Control-Allow-Methods': '*', 'Access-Control-Expose-Headers': 'X-Pagination-Total'}})
-      		.then(response => {
-				  console.log(response);
-			  }).catch(error => {
-				  console.log("get error 1")
-				  console.log(error);
-				  });
-		}
-		catch(error){
-			console.log("get error 2");
-			console.log(error);
-		}	
+		axios
+		.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+		.then(response => (this.info = response.data.bpi))
+		.catch(error => console.log(error));
 	}
 
 	var options = {
