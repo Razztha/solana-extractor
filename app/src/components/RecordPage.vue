@@ -77,7 +77,8 @@
 
 		try{
 		axios.get('https://solana-windows.empite.net/api/metadata/1', 
-			{headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*'}})
+			{headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*',
+			'Access-Control-Allow-Methods': '*', 'Access-Control-Expose-Headers': 'X-Pagination-Total'}})
       		.then(response => {
 				  console.log(response);
 			  }).catch(error => console.log(error));
