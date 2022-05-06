@@ -63,14 +63,14 @@
 	var dataObj = null;
 	var apiData = null;
 	const testAPI = (base64data) => {
-		dataObj = {Id: "", Data: base64data, Latitude: "", Longitude: "", FileSize: '', 
+		dataObj = {Id: "", Data: base64data, Latitude: 0, Longitude: 0, FileSize: '', 
 		FileName: "test-record.mp4"};
 		callAPI(dataObj);
 	}
 
 	const callAPI = (dataObj) => {
-		dataObj.Latitude = geoData != null ? geoData.latitude : "";
-		dataObj.Longitude = geoData != null ? geoData.longitude : "";
+		dataObj.Latitude = geoData != null ? geoData.latitude : 0;
+		dataObj.Longitude = geoData != null ? geoData.longitude : 0;
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
