@@ -74,7 +74,7 @@
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
-		axios.post('https://ukraine-dev-api.empite.net/api/metadata/readfile', dataObj ,
+		axios.post('https://solana-windows.empite.net/api/metadata/readfile', dataObj ,
 		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
 			    console.log(data.data);
 				apiData = data.data;
