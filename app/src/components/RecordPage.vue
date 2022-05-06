@@ -75,7 +75,8 @@
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
 
-		axios.get('https://u2201-ukraine-dev-api-win.azurewebsites.net//api/metadata/1')
+		axios.get('https://solana-windows.empite.net/api/metadata/1', 
+			{headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*'}})
       		.then(response => {
 				  console.log(response);
 			  });
