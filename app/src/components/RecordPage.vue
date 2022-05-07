@@ -19,6 +19,7 @@
 		}
 
 		if (confirm("This will cost some SOL. Press ok to continue") == true) {
+			document.getElementById("loader").innerHTML = "Saving...";
 			document.getElementById("loader").style.display = "block";
 			console.log(dataObj);
 			console.log(apiData);
@@ -45,6 +46,7 @@
     }
 
 	const stop = () => {
+		document.getElementById("loader").innerHTML = "Loading...";
 		document.getElementById("loader").style.display = "block";
         onBtnStopClicked();
 		console.log(chunks);
