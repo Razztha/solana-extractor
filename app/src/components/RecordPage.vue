@@ -121,9 +121,9 @@
             <video muted id="live" autoplay controls playsinline></video>
         </div>
 		<p>
-			<span id="hour">00</span> :
-			<span id="min">00</span> :
-			<span id="sec">00</span>
+			<span id="hour" class="font-bold">00</span> :
+			<span id="min" class="font-bold">00</span> :
+			<span id="sec" class="font-bold">00</span>
 			<span id="record-icon" style="display:none"><i class="fa fa-circle ml-2" style="color:brown"></i></span>
 			<span id="milisec" class="hidden">00</span>
 		</p>
