@@ -42,7 +42,7 @@
 		if(isRecord){
 			console.log(geoData1);
 			isRecord = false;
-			initiateRecorder();		
+			//initiateRecorder();		
 			//getLocation();
 			document.getElementById("record-icon").style.display = "inline";
 			document.getElementById("rec").innerHTML = "Stop";
