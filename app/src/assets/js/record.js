@@ -1,5 +1,7 @@
 'use strict';
 
+//import {getLocation} from './geolocation.js';
+
 var constraints = {
 	audio:true,
 	video:{width:{min:640,ideal:640,max:640}, facingMode: 'environment', height:{ min:480,ideal:480,max:480},framerate:60}};
@@ -10,7 +12,7 @@ var constraints = {
 
 // playbackVideoElement.controls=false;
 
-var mediaRecorder;
+export var mediaRecorder;
 export var chunks = [];
 // var count = 0;
 var localStream = null;
@@ -130,36 +132,36 @@ function SoundMeter(context) {
     this.script.disconnect();
   };
 
-  export const onPauseResumeClicked = () => {
-    var pauseResBtn = document.querySelector('button#pauseRes');
-    var recBtn = document.querySelector('button#rec');
-    var stopBtn = document.querySelector('button#stop');
+//   export const onPauseResumeClicked = () => {
+//     var pauseResBtn = document.querySelector('button#pauseRes');
+//     var recBtn = document.querySelector('button#rec');
+//     var stopBtn = document.querySelector('button#stop');
 
-	if(pauseResBtn.textContent === "Pause"){
-		pauseResBtn.textContent = "Resume";
-		mediaRecorder.pause();
-		stopBtn.disabled = true;
-	}else{
-		pauseResBtn.textContent = "Pause";
-		mediaRecorder.resume();
-		stopBtn.disabled = false;
-	}
-	recBtn.disabled = true;
-	pauseResBtn.disabled = false;
-}
+// 	if(pauseResBtn.textContent === "Pause"){
+// 		pauseResBtn.textContent = "Resume";
+// 		mediaRecorder.pause();
+// 		stopBtn.disabled = true;
+// 	}else{
+// 		pauseResBtn.textContent = "Pause";
+// 		mediaRecorder.resume();
+// 		stopBtn.disabled = false;
+// 	}
+// 	recBtn.disabled = true;
+// 	pauseResBtn.disabled = false;
+// }
 
 export const onBtnRecordClicked = () => {
     // var playbackVideoElement = document.querySelector('#playback');
     var downloadLink = document.querySelector('a#downloadLink');
     var recBtn = document.querySelector('button#rec');
-    var pauseResBtn = document.querySelector('button#pauseRes');
+    // var pauseResBtn = document.querySelector('button#pauseRes');
     var stopBtn = document.querySelector('button#stop');
 
 	if (localStream == null) {
 		alert('Could not get local stream from mic/camera');
 	}else {
 		recBtn.disabled = true;
-		pauseResBtn.disabled = false;
+		// pauseResBtn.disabled = false;
 		stopBtn.disabled = false;
 
 		chunks = [];
@@ -211,7 +213,6 @@ export const onBtnRecordClicked = () => {
                 log("onstart - Video track.readyState="+track.readyState+", track.muted=" + track.muted);
               }
             });
-			
 		};
 
 		mediaRecorder.onstop = function(){
@@ -273,8 +274,8 @@ export const onBtnRecordClicked = () => {
 			log('mediaRecorder.onwarning: ' + e);
 		};
 
-		pauseResBtn.textContent = "Pause";
-
+		// pauseResBtn.textContent = "Pause";
+		console.log(mediaRecorder);
 		mediaRecorder.start(1000);
 
 		localStream.getTracks().forEach(function(track) {
@@ -286,7 +287,7 @@ export const onBtnRecordClicked = () => {
   
 export const onBtnStopClicked = () => {
 	var recBtn = document.querySelector('button#rec');
-    var pauseResBtn = document.querySelector('button#pauseRes');
+    // var pauseResBtn = document.querySelector('button#pauseRes');
     var stopBtn = document.querySelector('button#stop');
 
 	if (mediaRecorder != null){
@@ -294,9 +295,9 @@ export const onBtnStopClicked = () => {
 	}
 	
 	localStream.getTracks().forEach( track => track.stop() );
-	document.getElementById("live").src = '';
+	// document.getElementById("live").src = '';
 	recBtn.disabled = false;
-	pauseResBtn.disabled = true;
+	// pauseResBtn.disabled = true;
 	stopBtn.disabled = true;
 }
 
@@ -369,3 +370,4 @@ export const getData = async() => {
     const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
     return await response.json();
 }
+

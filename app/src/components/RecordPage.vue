@@ -1,5 +1,5 @@
 <script setup>
-    import { initiateRecorder, onBtnRecordClicked, onPauseResumeClicked, onBtnStopClicked, chunks } from '../assets/js/record.js';
+    import { initiateRecorder, onBtnRecordClicked, onBtnStopClicked, chunks } from '../assets/js/record.js';
 	import "webrtc-adapter";
 	import { sendTweet } from '@/api'
 	//import { useWallet } from 'solana-wallets-vue'
@@ -32,20 +32,30 @@
 		}
 	}
 
-	const start = () => {
-        initiateRecorder();
-    }
+	//const start = () => {
+      //  initiateRecorder();
+    //}
 
     const record = () => {
+		initiateRecorder();		
 		getLocation();
-        onBtnRecordClicked();
+        setTimeout(onBtnRecordClicked, 100);
     }
 
-    const pause = () => {
-        onPauseResumeClicked();
-    }
+    //const pause = () => {
+      //  onPauseResumeClicked();
+    //}
 
 	const stop = () => {
+
+		if (confirm("stop with out saving") == true) {
+			onBtnStopClicked();
+			return;
+			}
+		else{
+			//test
+		}	
+
 		document.getElementById("loader").innerHTML = "Loading...";
 		document.getElementById("loader").style.display = "block";
         onBtnStopClicked();
@@ -112,11 +122,14 @@
 	}
 	}
 
-	//const createGuid = () => {  
-	//return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-	//	(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-	//);
-	//} 
+</script>
+
+<script>
+	export default {
+		mounted() {
+			initiateRecorder();
+    	}
+	}
 </script>
 
 <template>
@@ -124,17 +137,22 @@
 		<div style="border: 1px solid red; min-height:200px" class="mb-5">
             <video muted id="live" autoplay controls playsinline></video>
         </div>
-		
+		<p class="hidden">
+		<span id="hour">00</span> :
+		<span id="min">00</span> :
+		<span id="sec">00</span>
+		<span id="milisec">00</span>
+		</p>
 		<div id="controls">
-			<button id="start" @click="start" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
+			<!--<button id="start" @click="start" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
 				Start
-			</button>
+			</button>-->
 			<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
 				Record
 			</button>
-			<button id="pauseRes" @click="pause" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+			<!--<button id="pauseRes" @click="pause" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Pause
-        	</button>
+        	</button>-->
 			<button id="stop" @click="stop" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Stop
         	</button>
