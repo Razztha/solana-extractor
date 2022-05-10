@@ -37,29 +37,43 @@
       //  initiateRecorder();
     //}
 
+	var isRecord = true;
     const record = () => {
-		console.log(geoData1);
-		initiateRecorder();		
-		//getLocation();
-		document.getElementById("record-icon").style.display = "inline";
-        setTimeout(onBtnRecordClicked, 100);
+		if(isRecord){
+			console.log(geoData1);
+			isRecord = false;
+			initiateRecorder();		
+			//getLocation();
+			document.getElementById("record-icon").style.display = "inline";
+			document.getElementById("rec").innerHTML = "Stop";
+			setTimeout(onBtnRecordClicked, 500);
+		}
+		else{
+			stop();
+		}
     }
 
     //const pause = () => {
       //  onPauseResumeClicked();
     //}
 
+	let base64data = ""; 
 	const stop = () => {
 
-		if (confirm("Click Ok to upload recorded video and extract meta data") == true) {
-			// continue;
-			}
-		else{
-			return;
-		}	
+		//if (confirm("Click Ok to upload recorded video and extract meta data") == true) {
+		//		document.getElementById("rec").innerHTML = "Record";
+		//		console.log(base64data);
+		//		isRecord = false;
+		//	}
+		//else{
+		//	return;
+		//}
 
-		document.getElementById("loader").innerHTML = "Loading...";
-		document.getElementById("loader").style.display = "block";
+		document.getElementById("rec").innerHTML = "Record";
+		isRecord = true;	
+
+		//document.getElementById("loader").innerHTML = "Loading...";
+		//document.getElementById("loader").style.display = "block";
 		document.getElementById("record-icon").style.display = "none";
 
         onBtnStopClicked();
@@ -70,13 +84,30 @@
     	});
 
         var reader = new FileReader();
-    	let base64data = "";
+    	base64data = "";
     	reader.readAsDataURL(blob); 
     	reader.onloadend = function() {
         base64data = reader.result;
-        testAPI(base64data)          
+		//document.getElementById("loader").style.display = "none";
+        //testAPI(base64data)          
         }
     }
+
+	const uploadAndExtractData = () => {
+		console.log(chunks.length);
+		if (chunks.length == 0) {
+			alert("No record found");
+			return;
+		}
+		if (confirm("Click Ok to upload recorded video and extract meta data") == true) {
+			document.getElementById("loader").style.display = "block";
+			testAPI(base64data);
+		}
+		else{
+			return;
+		}
+		
+	}
 
 	var geoData = null;
 	var dataObj = null;
@@ -137,10 +168,10 @@
 			<!--<button id="pauseRes" @click="pause" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Pause
         	</button>-->
-			<button id="stop" @click="stop" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
-            	Stop
+			<button id="stop" @click="uploadAndExtractData" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+            	Upload & Extract
         	</button>
-			<button id="stop" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+			<button id="save-solana" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Save to Solana
         	</button>
 			<p id="loader" style="display:none">Loading...</p>

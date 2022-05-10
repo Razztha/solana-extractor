@@ -155,16 +155,16 @@ function SoundMeter(context) {
 export const onBtnRecordClicked = () => {
     // var playbackVideoElement = document.querySelector('#playback');
     var downloadLink = document.querySelector('a#downloadLink');
-    var recBtn = document.querySelector('button#rec');
+    // var recBtn = document.querySelector('button#rec');
     // var pauseResBtn = document.querySelector('button#pauseRes');
-    var stopBtn = document.querySelector('button#stop');
+    // var stopBtn = document.querySelector('button#stop');
 
 	if (localStream == null) {
 		alert('Could not get local stream from mic/camera');
 	}else {
-		recBtn.disabled = true;
+		// recBtn.disabled = true;
 		// pauseResBtn.disabled = false;
-		stopBtn.disabled = false;
+		// stopBtn.disabled = false;
 
 		chunks = [];
 
@@ -205,7 +205,7 @@ export const onBtnRecordClicked = () => {
 		};
 
 		mediaRecorder.onstart = function(){
-			startTimer();
+			startTimer(0);
 			log('mediaRecorder.onstart, mediaRecorder.state = ' + mediaRecorder.state);
 			
 			localStream.getTracks().forEach(function(track) {
@@ -290,19 +290,21 @@ export const onBtnRecordClicked = () => {
   
 export const onBtnStopClicked = () => {
 	stopTimer();
-	var recBtn = document.querySelector('button#rec');
+	// var recBtn = document.querySelector('button#rec');
     // var pauseResBtn = document.querySelector('button#pauseRes');
-    var stopBtn = document.querySelector('button#stop');
+    // var stopBtn = document.querySelector('button#stop');
 
 	if (mediaRecorder != null){
 		mediaRecorder.stop();
 	}
 	
-	localStream.getTracks().forEach( track => track.stop() );
+	// close camera window
+	//localStream.getTracks().forEach( track => track.stop() );
 	// document.getElementById("live").src = '';
-	recBtn.disabled = false;
+
+	// recBtn.disabled = false;
 	// pauseResBtn.disabled = true;
-	stopBtn.disabled = true;
+	// stopBtn.disabled = true;
 }
 
   //browser ID

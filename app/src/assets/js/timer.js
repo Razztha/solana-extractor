@@ -1,8 +1,15 @@
 var x = 0;
 var startstop = 0;
 
-export const startTimer = () => {
-  startstop = startstop + 1;
+export const startTimer = (x) => { 
+  startstop = x + 1;
+
+  if (x == 0){
+    milisec = 0;
+    sec = 0; /* holds incrementing value */
+    min = 0;
+    hour = 0;
+  }
 
   if (startstop === 1) {
     start1();
