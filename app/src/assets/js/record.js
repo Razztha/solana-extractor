@@ -1,6 +1,7 @@
 'use strict';
 
-//import {getLocation} from './geolocation.js';
+import {startTimer, stopTimer } from './timer.js';
+import {getLocation } from './geolocation.js';
 
 var constraints = {
 	audio:true,
@@ -75,6 +76,7 @@ export const initiateRecorder = () => {
 			});
 	}
 }
+	getLocation();
 }
 
 function log(message){
@@ -203,6 +205,7 @@ export const onBtnRecordClicked = () => {
 		};
 
 		mediaRecorder.onstart = function(){
+			startTimer();
 			log('mediaRecorder.onstart, mediaRecorder.state = ' + mediaRecorder.state);
 			
 			localStream.getTracks().forEach(function(track) {
@@ -259,7 +262,7 @@ export const onBtnRecordClicked = () => {
 
 			downloadLink.setAttribute( "download", name);
 			downloadLink.setAttribute( "name", name);
-			// downloadLink.click();
+			downloadLink.click();
 		};
 
 		mediaRecorder.onpause = function(){
@@ -286,6 +289,7 @@ export const onBtnRecordClicked = () => {
 }
   
 export const onBtnStopClicked = () => {
+	stopTimer();
 	var recBtn = document.querySelector('button#rec');
     // var pauseResBtn = document.querySelector('button#pauseRes');
     var stopBtn = document.querySelector('button#stop');

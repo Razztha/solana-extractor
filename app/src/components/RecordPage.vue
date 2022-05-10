@@ -1,5 +1,6 @@
 <script setup>
     import { initiateRecorder, onBtnRecordClicked, onBtnStopClicked, chunks } from '../assets/js/record.js';
+	import { geoData1 } from '../assets/js/geolocation.js';
 	import "webrtc-adapter";
 	import { sendTweet } from '@/api'
 	//import { useWallet } from 'solana-wallets-vue'
@@ -37,8 +38,10 @@
     //}
 
     const record = () => {
+		console.log(geoData1);
 		initiateRecorder();		
-		getLocation();
+		//getLocation();
+		document.getElementById("record-icon").style.display = "inline";
         setTimeout(onBtnRecordClicked, 100);
     }
 
@@ -48,16 +51,17 @@
 
 	const stop = () => {
 
-		if (confirm("stop with out saving") == true) {
-			onBtnStopClicked();
-			return;
+		if (confirm("Click Ok to upload recorded video and extract meta data") == true) {
+			// continue;
 			}
 		else{
-			//test
+			return;
 		}	
 
 		document.getElementById("loader").innerHTML = "Loading...";
 		document.getElementById("loader").style.display = "block";
+		document.getElementById("record-icon").style.display = "none";
+
         onBtnStopClicked();
 		console.log(chunks);
 
@@ -84,8 +88,9 @@
 	}
 
 	const callAPI = (dataObj) => {
-		dataObj.Latitude = geoData != null ? geoData.latitude : 0;
-		dataObj.Longitude = geoData != null ? geoData.longitude : 0;
+		console.log(geoData);
+		dataObj.Latitude = geoData1 != null ? geoData1.latitude : 0;
+		dataObj.Longitude = geoData1 != null ? geoData1.longitude : 0;
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
@@ -100,28 +105,6 @@
 		
 	}
 
-	var options = {
-	enableHighAccuracy: true,
-	timeout: 5000,
-	maximumAge: 0
-	};
-
-	const success = (pos) => {
-	var crd = pos.coords;
-	geoData = crd;
-	console.log('Successfully determined a user position:', crd);
-	}
-
-	const error = (err) => {
-	console.log(`ERROR(${err.code}): ${err.message}`);
-	}
-
-	const getLocation = () => {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(success, error, options);
-	}
-	}
-
 </script>
 
 <script>
@@ -134,14 +117,15 @@
 
 <template>
 	<div class="px-8 py-4 border-b">
-		<div style="border: 1px solid red; min-height:200px" class="mb-5">
+		<div style="border: 1px solid red; min-height:200px" class="mb-4">
             <video muted id="live" autoplay controls playsinline></video>
         </div>
-		<p class="hidden">
-		<span id="hour">00</span> :
-		<span id="min">00</span> :
-		<span id="sec">00</span>
-		<span id="milisec">00</span>
+		<p>
+			<span id="hour">00</span> :
+			<span id="min">00</span> :
+			<span id="sec">00</span>
+			<span id="record-icon" style="display:none"><i class="fa fa-circle ml-2" style="color:brown"></i></span>
+			<span id="milisec" class="hidden">00</span>
 		</p>
 		<div id="controls">
 			<!--<button id="start" @click="start" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >

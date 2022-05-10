@@ -2,7 +2,6 @@ var x = 0;
 var startstop = 0;
 
 export const startTimer = () => {
-
   startstop = startstop + 1;
 
   if (startstop === 1) {
