@@ -15,22 +15,19 @@
 	const emit = defineEmits(['added']);
 	const saveMetadata = async () => {
 		if (! canSave.value) {
-			alert("No record found");
+			document.getElementById("loader").innerHTML = "Recording not found";
 			return;
 		}
 
-		if (confirm("This will cost some SOL. Press ok to continue") == true) {
-			document.getElementById("loader").innerHTML = "Saving...";
-			document.getElementById("loader").style.display = "block";
-			console.log(dataObj);
-			console.log(apiData);
-			const tweet = await sendTweet('', "'"+JSON.stringify(apiData)+"'");
-			document.getElementById("loader").style.display = "none";
-			//const tweet = await sendTweet('', 'works');
-			emit('added', tweet)
-		} else {
-			return;
-		}
+		document.getElementById("loader").innerHTML = "Saving to solana... 🚀";
+		document.getElementById("loader").style.display = "block";
+		console.log(apiData);
+		console.log(dataObj);
+		const tweet = await sendTweet('', "'"+JSON.stringify(apiData)+"'");
+		//const tweet = await sendTweet('', 'works');
+		emit('added', tweet);
+		document.getElementById("rec").innerHTML = "PRESS";
+		document.getElementById("loader").innerHTML = "Successfully saved to solana 😊";
 	}
 
 	//const start = () => {
@@ -40,12 +37,13 @@
 	var isRecord = true;
     const record = () => {
 		if(isRecord){
+			document.getElementById("loader").innerHTML = "";
 			console.log(geoData1);
 			isRecord = false;
 			//initiateRecorder();		
 			//getLocation();
 			document.getElementById("record-icon").style.display = "inline";
-			document.getElementById("rec").innerHTML = "Stop";
+			document.getElementById("rec").innerHTML = "MINT";
 			setTimeout(onBtnRecordClicked, 500);
 		}
 		else{
@@ -60,16 +58,19 @@
 	let base64data = ""; 
 	const stop = () => {
 
-		//if (confirm("Click Ok to upload recorded video and extract meta data") == true) {
-		//		document.getElementById("rec").innerHTML = "Record";
-		//		console.log(base64data);
-		//		isRecord = false;
-		//	}
-		//else{
-		//	return;
-		//}
+		if (confirm("Click Ok to continue..."+ "\r\n"+ "\r\n" +"1. It will upload recorded video and extract meta data"
+		 + "\r\n" + "2. save data to solana blockchain ") == true) {
+				//document.getElementById("rec").innerHTML = "PRESS";
+				console.log(base64data);
+		}
+		else{
+			document.getElementById("rec").innerHTML = "PRESS";
+			isRecord = true;
+			onBtnStopClicked();
+			return;
+		}
 
-		document.getElementById("rec").innerHTML = "Record";
+		//document.getElementById("rec").innerHTML = "PRESS";
 		isRecord = true;	
 
 		//document.getElementById("loader").innerHTML = "Loading...";
@@ -88,8 +89,7 @@
     	reader.readAsDataURL(blob); 
     	reader.onloadend = function() {
         base64data = reader.result;
-		//document.getElementById("loader").style.display = "none";
-        //testAPI(base64data)          
+        testAPI(base64data);        
         }
     }
 
@@ -125,13 +125,16 @@
 		// dataObj.Data = "";
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
-
+		document.getElementById("loader").style.display = "block";
+		document.getElementById("loader").innerHTML = "Start uploading and extracting... 📹";
 		axios.post('https://solana-windows.empite.net/api/metadata/readfile', dataObj ,
 		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
 			    console.log(data.data);
 				apiData = data.data;
 				console.log(apiData);
-				document.getElementById("loader").style.display = "none";
+				//document.getElementById("loader").style.display = "none";
+				document.getElementById("loader").innerHTML = "Completed upload and extract 💻";
+				setTimeout(saveMetadata, 2000);
 			});
 		
 	}
@@ -163,15 +166,15 @@
 				Start
 			</button>-->
 			<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
-				Record
+				Press
 			</button>
 			<!--<button id="pauseRes" @click="pause" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Pause
         	</button>-->
-			<button id="stop" @click="uploadAndExtractData" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+			<button id="stop" @click="uploadAndExtractData" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2 hidden" >
             	Upload & Extract
         	</button>
-			<button id="save-solana" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
+			<button id="save-solana" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2 hidden" >
             	Save to Solana
         	</button>
 			<p id="loader" style="display:none">Loading...</p>
