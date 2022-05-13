@@ -20,7 +20,7 @@ watchEffect(() => {
 
 <template>
     <!-- TODO: Check connected wallet -->
-    <div v-if="wallet" class="border-b px-8 py-4 bg-gray-50">
+    <div v-if="wallet" class="border-b px-8 py-4 bg-gray-50 break-all">
         {{ wallet.publicKey.toBase58() }}
     </div>
     <tweet-list :tweets="tweets" :loading="loading"></tweet-list>
