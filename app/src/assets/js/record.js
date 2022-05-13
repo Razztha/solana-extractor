@@ -5,7 +5,7 @@ import {getLocation } from './geolocation.js';
 
 var constraints = {
 	audio:true,
-	video:{width:{min:640,ideal:640,max:640}, facingMode: 'environment', height:{ min:480,ideal:480,max:480},framerate:60}};
+	video:{width:{min:640,ideal:screen.width,max:640}, facingMode: 'environment', height:{ min:480,ideal:screen.height,max:480},framerate:60}};
 
 // var playbackVideoElement = document.querySelector('#playback');
 // var dataElement = document.querySelector('#data');
@@ -23,6 +23,7 @@ var containerType = "video/mp4"; //defaults to webm but we switch to mp4 on Safa
 export const initiateRecorder = () => {
     var liveVideoElement = document.querySelector('#live');
     liveVideoElement.controls = false;
+	console.log(screen.width);
     if (!navigator.mediaDevices.getUserMedia){
 	alert('navigator.mediaDevices.getUserMedia not supported on your browser, use the latest version of Firefox or Chrome');
     }
