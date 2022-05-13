@@ -10,7 +10,7 @@
 	// Permissions.
 	//const { connected } = useWallet()
 	//const canRecord = computed(() => connected)
-	const canSave = computed(() => chunks.length > 0 && apiData != null)	
+	const canSave = computed(() => chunks.length > 0 && apiData != null);
 
 	const emit = defineEmits(['added']);
 	const saveMetadata = async () => {
@@ -145,16 +145,17 @@
 	export default {
 		mounted() {
 			initiateRecorder();
+			console.log("hit mounted");
     	}
 	}
 </script>
 
 <template>
 	<div class="border-b">
-		<div style="min-height:200px" class="mb-2">
+		<div id="video-content" style="min-height:200px" class="mb-2">
             <video muted id="live" autoplay controls playsinline class="m-auto"></video>
         </div>
-		<div class="grid grid-cols-3 gap-4">
+		<div id="btn-content" class="grid grid-cols-3 gap-4" style="display:none;">
 			<div class="text-center">
 				<p class="ml-2">
 				<span id="hour" class="font-bold">00</span> :

@@ -23,10 +23,8 @@ var soundMeter  = null;
 var containerType = "video/mp4"; //defaults to webm but we switch to mp4 on Safari 14.0.2+
 
 export const initiateRecorder = () => {
-	console.log(window.devicePixelRatio);
-	console.log(screen.height * window.devicePixelRatio);
-	console.log(screen.width * window.devicePixelRatio);
     var liveVideoElement = document.querySelector('#live');
+	
     liveVideoElement.controls = false;
     if (!navigator.mediaDevices.getUserMedia){
 	alert('navigator.mediaDevices.getUserMedia not supported on your browser, use the latest version of Firefox or Chrome');
@@ -56,6 +54,9 @@ export const initiateRecorder = () => {
 				
 				liveVideoElement.srcObject = localStream;
 				liveVideoElement.play();
+				
+				console.log(document.getElementById("btn-content"));
+				document.getElementById("btn-content").style.display = "block";
 				
 				try {
 					window.AudioContext = window.AudioContext || window.webkitAudioContext;
