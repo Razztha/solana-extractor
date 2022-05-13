@@ -151,23 +151,32 @@
 
 <template>
 	<div class="border-b">
-		<div style="border: 1px solid red; min-height:200px" class="mb-4">
-            <video muted id="live" autoplay controls playsinline></video>
+		<div style="min-height:200px" class="mb-2">
+            <video muted id="live" autoplay controls playsinline class="m-auto"></video>
         </div>
-		<p>
-			<span id="hour" class="font-bold">00</span> :
-			<span id="min" class="font-bold">00</span> :
-			<span id="sec" class="font-bold">00</span>
-			<span id="record-icon" style="display:none"><i class="fa fa-circle ml-2" style="color:brown"></i></span>
-			<span id="milisec" class="hidden">00</span>
-		</p>
+		<div class="grid grid-cols-3 gap-4">
+			<div class="text-center">
+				<p class="ml-2">
+				<span id="hour" class="font-bold">00</span> :
+				<span id="min" class="font-bold">00</span> :
+				<span id="sec" class="font-bold">00</span>
+				<span id="record-icon" style="display:none"><i class="fa fa-circle ml-2" style="color:brown"></i></span>
+				<span id="milisec" class="hidden">00</span>
+				</p>
+			</div>
+			<div class="text-center">
+				<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
+					PRESS
+				</button>
+			</div>
+			<div></div>
+		</div>
+		
 		<div id="controls">
 			<!--<button id="start" @click="start" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
 				Start
 			</button>-->
-			<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
-				PRESS
-			</button>
+			
 			<!--<button id="pauseRes" @click="pause" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Pause
         	</button>-->
@@ -177,7 +186,7 @@
 			<button id="save-solana" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2 hidden" >
             	Save to Solana
         	</button>
-			<p id="loader" style="display:none">Loading...</p>
+			<p id="loader" class="text-center" style="display:none">Loading...</p>
 		</div>
 	</div>
 	<a id="downloadLink" href style="display:none"></a>
