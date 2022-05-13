@@ -166,7 +166,7 @@
 				Start
 			</button>-->
 			<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
-				Press
+				PRESS
 			</button>
 			<!--<button id="pauseRes" @click="pause" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
             	Pause

@@ -36,6 +36,7 @@ export const initiateRecorder = () => {
                 console.log(localStream);
 				
 				localStream.getTracks().forEach(function(track) {
+					console.log(track.getSettings());
 					if(track.kind == "audio"){
 						track.onended = function(){
 							 log("audio track.onended Audio track.readyState="+track.readyState+", track.muted=" + track.muted);
