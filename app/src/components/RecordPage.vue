@@ -150,7 +150,7 @@
 </script>
 
 <template>
-	<div class="px-8 py-4 border-b">
+	<div class="border-b">
 		<div style="border: 1px solid red; min-height:200px" class="mb-4">
             <video muted id="live" autoplay controls playsinline></video>
         </div>
