@@ -166,7 +166,7 @@
 				</p>
 			</div>
 			<div class="text-center">
-				<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 mt-2 rounded-full font-semibold bg-pink-500 mr-2" >
+				<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
 					PRESS
 				</button>
 			</div>

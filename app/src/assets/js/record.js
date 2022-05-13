@@ -56,7 +56,7 @@ export const initiateRecorder = () => {
 				liveVideoElement.play();
 				
 				console.log(document.getElementById("btn-content"));
-				document.getElementById("btn-content").style.display = "block";
+				document.getElementById("btn-content").style.display = "grid";
 				
 				try {
 					window.AudioContext = window.AudioContext || window.webkitAudioContext;
