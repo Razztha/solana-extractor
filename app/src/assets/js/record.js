@@ -5,7 +5,9 @@ import {getLocation } from './geolocation.js';
 
 var constraints = {
 	audio:true,
-	video:{width:{min:640,ideal:screen.width,max:640}, facingMode: 'environment', height:{ min:480,ideal:screen.height,max:480},framerate:60}};
+	video:{width:{min:640,ideal:screen.width * window.devicePixelRatio,max:640}, 
+	facingMode: 'environment', height:{ min:480,ideal:screen.height * window.devicePixelRatio,max:480},
+	framerate:60}};
 
 // var playbackVideoElement = document.querySelector('#playback');
 // var dataElement = document.querySelector('#data');
