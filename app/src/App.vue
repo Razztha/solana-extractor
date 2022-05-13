@@ -25,7 +25,7 @@ initWorkspace()
         <!-- Main -->
         <!--<main class="flex-1 border-r border-l ml-20 md:ml-64 min-h-screen">-->
         <main class="flex-1 border-r border-l">
-            <header class="flex space-x-6 items-center justify-between px-6 border-b">
+            <header class="flex space-x-6 items-center justify-between px-6 py-1 border-b">
                 <div class="text-xl font-bold" v-text="route.name"></div>
                 <div class="">
                     <!-- <wallet-multi-button></wallet-multi-button> -->

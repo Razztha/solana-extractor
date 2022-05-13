@@ -186,7 +186,7 @@
 			<button id="save-solana" @click="saveMetadata" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2 hidden" >
             	Save to Solana
         	</button>
-			<p id="loader" class="text-center" style="display:none">Loading...</p>
+			<p id="loader" class="text-center mb-4" style="display:none">Loading...</p>
 		</div>
 	</div>
 	<a id="downloadLink" href style="display:none"></a>
