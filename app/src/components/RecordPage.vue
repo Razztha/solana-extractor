@@ -19,7 +19,7 @@
 			return;
 		}
 
-		document.getElementById("loader").innerHTML = "Saving to solana... 🚀";
+		document.getElementById("loader").innerHTML = "Saving to solana...";
 		document.getElementById("loader").style.display = "block";
 		console.log(apiData);
 		console.log(dataObj);
@@ -27,7 +27,7 @@
 		//const tweet = await sendTweet('', 'works');
 		emit('added', tweet);
 		document.getElementById("rec").innerHTML = "PRESS";
-		document.getElementById("loader").innerHTML = "Successfully saved to solana 🔥";
+		document.getElementById("loader").innerHTML = "Successfully saved to solana";
 	}
 
 	//const start = () => {
@@ -126,14 +126,14 @@
 		// dataObj.Id = createGuid();
 		console.log(dataObj);
 		document.getElementById("loader").style.display = "block";
-		document.getElementById("loader").innerHTML = "Start uploading and extracting... 📷";
+		document.getElementById("loader").innerHTML = "Start uploading and extracting...";
 		axios.post('https://solana-windows.empite.net/api/metadata/readfile', dataObj ,
 		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
 			    console.log(data.data);
 				apiData = data.data;
 				console.log(apiData);
 				//document.getElementById("loader").style.display = "none";
-				document.getElementById("loader").innerHTML = "Completed upload and extract 💿";
+				document.getElementById("loader").innerHTML = "Completed upload and extract";
 				setTimeout(saveMetadata, 2000);
 			});
 		
