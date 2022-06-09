@@ -1,17 +1,22 @@
 import { web3 } from '@project-serum/anchor'
 import { useWorkspace } from '@/composables'
 import { Tweet } from '@/models'
+import {Keypair} from '@solana/web3.js';
 import {createNftAndMint} from './token-control.js'
 
 // 1. Define the sendTweet endpoint.
 export const sendTweet = async (topic, content) => {
     const {connection, wallet, program } = useWorkspace()
+    // const {wallet, program } = useWorkspace()
   
   	// 2. Generate a new Keypair for our new tweet account.
-    const keyPair = web3.Keypair.generate()
+    let keyPair = Keypair.generate();
 
     // create nft
-    await createNftAndMint(connection, keyPair);
+    let nftResponseObj = await createNftAndMint(connection, keyPair);
+    var contentObj = JSON.parse(JSON.stringify(content));
+    var mergedObj = contentObj.concat(JSON.stringify(nftResponseObj));
+    content = mergedObj;
 
     // 3. Send a "SendTweet" instruction with the right data and the right accounts.
     try {
