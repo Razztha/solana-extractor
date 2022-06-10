@@ -14,9 +14,12 @@ export const sendTweet = async (topic, content) => {
 
     // create nft
     let nftResponseObj = await createNftAndMint(connection, keyPair);
-    var contentObj = JSON.parse(JSON.stringify(content));
-    var mergedObj = contentObj.concat(JSON.stringify(nftResponseObj));
-    content = mergedObj;
+    var contentObj = JSON.parse(content.replace(/'/gi,''));
+    var mergedObj = {
+        ...contentObj,
+        ...nftResponseObj
+    };
+    content = JSON.stringify(mergedObj);
 
     // 3. Send a "SendTweet" instruction with the right data and the right accounts.
     try {

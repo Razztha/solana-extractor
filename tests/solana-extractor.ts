@@ -28,7 +28,7 @@ describe("solana-extractor", () => {
   it('cannot provide data more than 300', async () => {
     try {
         const keyPair = anchor.web3.Keypair.generate();
-        const jsonWith300 = 'x'.repeat(350);
+        const jsonWith300 = 'x'.repeat(1000);
         await program.rpc.saveMetadata(jsonWith300, {
             accounts: {
                 metadata: keyPair.publicKey,
@@ -48,7 +48,7 @@ describe("solana-extractor", () => {
 
   it('can fetch all data', async () => {
     const metadata = await program.account.metadata.all();
-    console.log(metadata);
+    // console.log(metadata);
     // assert.equal(tweetAccounts.length, 3);
 });
 });

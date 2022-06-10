@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::system_program;
 
-declare_id!("5QXsiYB4w8mb3phLuyzaL8CkEfuvGe1L5a8UfnDZUeYb");
+declare_id!("BbM5Yg3eqXrxTCVcQBRvb13zyDPKCq9WqujmBJNosf5w");
 
 #[program]
 pub mod solana_extractor {
@@ -12,7 +12,7 @@ pub mod solana_extractor {
         let author: &Signer = &ctx.accounts.author;
         let clock: Clock = Clock::get().unwrap();
 
-        if data.chars().count() > 300 {
+        if data.chars().count() > 1000 {
             return Err(ErrorCode::MetadataTooLong.into())
         }
 
@@ -45,7 +45,7 @@ const DISCRIMINATOR_LENGTH: usize = 8;
 const PUBLIC_KEY_LENGTH: usize = 32;
 const TIMESTAMP_LENGTH: usize = 8;
 const STRING_LENGTH_PREFIX: usize = 4;
-const DATA_LENGTH: usize = 300 * 4;
+const DATA_LENGTH: usize = 1000 * 4;
 
 impl Metadata {
     const LEN: usize = DISCRIMINATOR_LENGTH + PUBLIC_KEY_LENGTH + TIMESTAMP_LENGTH +
@@ -55,6 +55,6 @@ impl Metadata {
 
 #[error_code]
 pub enum ErrorCode {
-    #[msg("The provided metat should be 300 characters long maximum.")]
+    #[msg("The provided metat should be 1000 characters long maximum.")]
     MetadataTooLong
 }

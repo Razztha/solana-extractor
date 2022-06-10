@@ -26,7 +26,7 @@
 		const tweet = await sendTweet('', "'"+JSON.stringify(apiData)+"'");
 		//const tweet = await sendTweet('', 'works');
 		emit('added', tweet);
-		document.getElementById("rec").innerHTML = "PRESS";
+		document.getElementById("rec").innerHTML = "RECORD";
 		document.getElementById("loader").innerHTML = "Successfully saved to solana";
 	}
 
@@ -43,7 +43,7 @@
 			//initiateRecorder();		
 			//getLocation();
 			document.getElementById("record-icon").style.display = "inline";
-			document.getElementById("rec").innerHTML = "MINT";
+			document.getElementById("rec").innerHTML = "PROOF";
 			setTimeout(onBtnRecordClicked, 500);
 		}
 		else{
@@ -60,17 +60,17 @@
 
 		if (confirm("Click Ok to continue..."+ "\r\n"+ "\r\n" +"1. It will upload recorded video and extract meta data"
 		 + "\r\n" + "2. save data to solana blockchain ") == true) {
-				//document.getElementById("rec").innerHTML = "PRESS";
+				//document.getElementById("rec").innerHTML = "RECORD";
 				console.log(base64data);
 		}
 		else{
-			document.getElementById("rec").innerHTML = "PRESS";
+			document.getElementById("rec").innerHTML = "RECORD";
 			isRecord = true;
 			onBtnStopClicked();
 			return;
 		}
 
-		//document.getElementById("rec").innerHTML = "PRESS";
+		//document.getElementById("rec").innerHTML = "RECORD";
 		isRecord = true;	
 
 		//document.getElementById("loader").innerHTML = "Loading...";
@@ -167,7 +167,7 @@
 			</div>
 			<div class="text-center">
 				<button id="rec" @click="record" class="text-white px-4 py-2 mb-2 rounded-full font-semibold bg-pink-500 mr-2" >
-					PRESS
+					RECORD
 				</button>
 			</div>
 			<div></div>
