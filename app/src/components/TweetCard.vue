@@ -32,7 +32,7 @@ const getLocation = (content) => {
     if (isJsonString(content)){
         var contentObj = JSON.parse(content.replace(/'/gi,''));
         console.log(contentObj);
-        return "location: "+ contentObj.latitude + ", " + contentObj.longitude +" ";
+        return "Location: "+ contentObj.latitude + ", " + contentObj.longitude +" ";
     }
     else{
         return "";
@@ -91,11 +91,14 @@ const isJsonString = (str) => {
                 </router-link>
             </time>
         </div>
-        <video controls preload="metadata">
-            <source :src="loadVideo(tweet.content)" type="video/mp4">
-        </video>
+        <div>
+            <video controls preload="metadata">
+                <source :src="loadVideo(tweet.content)" type="video/mp4">
+            </video>
+        </div>
+        <p class="mt-1">{{getLocation(tweet.content)}}</p>
+        <p class="mt-1">CreatedAt: {{tweet.created_at}}</p>
         <p class="mt-1">
-            {{getLocation(tweet.content)}}
             <button class="bg-pink-500 text-white active:bg-pink-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150" :id="getDataId(tweet.content)+'_btn'" @click="toggleDataDiplay(getDataId(tweet.content))">See More</button>
         </p>
         <p :id="getDataId(tweet.content)" class="" style="word-break: break-all; display:none;" v-text="tweet.content"></p>
