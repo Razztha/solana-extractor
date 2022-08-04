@@ -127,7 +127,7 @@
 		console.log(dataObj);
 		document.getElementById("loader").style.display = "block";
 		document.getElementById("loader").innerHTML = "Start uploading and extracting...";
-		axios.post('https://solana-windows.empite.net/api/metadata/readfile', dataObj ,
+		axios.post(process.env.VUE_APP_API_URL+'/api/metadata/readfile', dataObj ,
 		  { headers: { "Content-Type": "application/json" } }).then(function(data){    
 			    console.log(data.data);
 				apiData = data.data;
