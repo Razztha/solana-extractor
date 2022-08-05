@@ -1,13 +1,13 @@
 [features]
 seeds = false
 [programs.localnet]
-solana_extractor = "BbM5Yg3eqXrxTCVcQBRvb13zyDPKCq9WqujmBJNosf5w"
+solana_extractor = "E8pjtGJEDxAWBc1iBDiTjHTM5LaMHE1c6nASc6gaL5vq"
 
 [programs.devnet]
-solana_extractor = "BbM5Yg3eqXrxTCVcQBRvb13zyDPKCq9WqujmBJNosf5w"
+solana_extractor = "E8pjtGJEDxAWBc1iBDiTjHTM5LaMHE1c6nASc6gaL5vq"
 
 [programs.mainnet]
-solana_extractor = "BbM5Yg3eqXrxTCVcQBRvb13zyDPKCq9WqujmBJNosf5w"
+solana_extractor = "E8pjtGJEDxAWBc1iBDiTjHTM5LaMHE1c6nASc6gaL5vq"
 
 [registry]
 url = "https://anchor.projectserum.com"

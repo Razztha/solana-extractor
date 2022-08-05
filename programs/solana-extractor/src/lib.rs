@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::system_program;
 
-declare_id!("BbM5Yg3eqXrxTCVcQBRvb13zyDPKCq9WqujmBJNosf5w");
+declare_id!("E8pjtGJEDxAWBc1iBDiTjHTM5LaMHE1c6nASc6gaL5vq");
 
 #[program]
 pub mod solana_extractor {
